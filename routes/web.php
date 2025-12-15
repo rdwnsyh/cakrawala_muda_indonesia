@@ -10,3 +10,5 @@ Route::get('/programs', [ProgramController::class, 'index'])->name('programs.ind
 Route::get('/programs/{slug}', [ProgramController::class, 'show'])->name('programs.show');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
+//sss
