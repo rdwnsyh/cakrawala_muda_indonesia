@@ -11,9 +11,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $programs = Program::where('status', 'aktif')
+        // Ambil program ongoing (status aktif, terbaru)
+        $ongoingProgram = Program::where('status', 'aktif')
             ->orderBy('tanggal_mulai', 'desc')
-            ->take(3)
+            ->first();
+
+        // Ambil jenis program unik untuk slider
+        $jenisPrograms = Program::select('jenis_program', 'poster_jenis_program')
+            ->distinct('jenis_program')
+            ->whereNotNull('jenis_program')
+            ->whereNotNull('poster_jenis_program')
             ->get();
 
         $testimonials = Testimonial::where('is_featured', true)
@@ -24,6 +31,6 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        return view('home', compact('programs', 'testimonials', 'beritas'));
+        return view('home', compact('ongoingProgram', 'jenisPrograms', 'testimonials', 'beritas'));
     }
 }

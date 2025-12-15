@@ -9,6 +9,7 @@ class Program extends Model
 {
     protected $fillable = [
         'jenis_program',
+        'poster_jenis_program', // Kolom baru
         'nama_program',
         'slug',
         'lokasi',
@@ -27,5 +28,22 @@ class Program extends Model
     public function registrants(): HasMany
     {
         return $this->hasMany(Registrant::class);
+    }
+    
+    // Helper method untuk mendapatkan jenis program unik
+    public static function getJenisProgramUnik()
+    {
+        return self::select('jenis_program', 'poster_jenis_program')
+            ->distinct()
+            ->whereNotNull('jenis_program')
+            ->get()
+            ->groupBy('jenis_program')
+            ->map(function ($items) {
+                return [
+                    'jenis_program' => $items->first()->jenis_program,
+                    'poster_jenis_program' => $items->first()->poster_jenis_program
+                ];
+            })
+            ->values();
     }
 }

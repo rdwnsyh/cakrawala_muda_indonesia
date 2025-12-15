@@ -6,51 +6,73 @@ use App\Filament\Resources\Programs\Pages\CreateProgram;
 use App\Filament\Resources\Programs\Pages\EditProgram;
 use App\Filament\Resources\Programs\Pages\ListPrograms;
 use App\Models\Program;
-use BackedEnum;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Components\Section; // <-- Ini yang penting untuk v4
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Illuminate\Support\Str;
 
 class ProgramResource extends Resource
 {
     protected static ?string $model = Program::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    public static function getNavigationIcon(): ?string
+    {
+        return 'heroicon-o-rectangle-stack';
+    }
 
-    protected static ?string $navigationLabel = 'Kelola Program';
+    public static function getNavigationLabel(): string
+    {
+        return 'Kelola Program';
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Manajemen Konten';
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return 1;
+    }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
-            ->columns(1)
-            ->components([
+            ->schema([
                 Section::make('Informasi Program')
                     ->schema([
                         TextInput::make('jenis_program')
                             ->label('Jenis Program')
                             ->required()
                             ->maxLength(255)
-                            ->placeholder('Contoh: Travel & Ekspedisi, Volunteering, Leadership & Education'),
+                            ->placeholder('Contoh: Jelajah Cakrawala Muda, Cakrawala Volunteering, Sehari Jadi Volunteer'),
+
+                        FileUpload::make('poster_jenis_program')
+                            ->label('Poster Jenis Program')
+                            ->image()
+                            ->disk('public')
+                            ->directory('programs/jenis')
+                            ->visibility('public')
+                            ->maxSize(2048)
+                            ->helperText('Gambar untuk mewakili jenis program (ukuran rekomendasi: 400x300px)')
+                            ->columnSpanFull(),
 
                         TextInput::make('nama_program')
                             ->label('Nama Program')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn ($set, $state) => $set('slug', Str::slug($state))),
 
                         TextInput::make('slug')
                             ->required()
@@ -60,18 +82,20 @@ class ProgramResource extends Resource
 
                         TextInput::make('lokasi')
                             ->label('Lokasi')
-                            ->placeholder('Contoh: Sumba, NTT')
+                            ->placeholder('Contoh: Dieng, Jawa Tengah')
                             ->maxLength(255),
 
                         DatePicker::make('tanggal_mulai')
                             ->label('Tanggal Mulai')
                             ->required()
-                            ->displayFormat('d/m/Y'),
+                            ->displayFormat('d/m/Y')
+                            ->native(false),
 
                         DatePicker::make('tanggal_selesai')
                             ->label('Tanggal Selesai')
                             ->required()
                             ->displayFormat('d/m/Y')
+                            ->native(false)
                             ->afterOrEqual('tanggal_mulai'),
 
                         Select::make('status')
@@ -82,10 +106,9 @@ class ProgramResource extends Resource
                                 'tutup' => 'Tutup',
                             ])
                             ->required()
-                            ->default('aktif'),
+                            ->default('aktif')
+                            ->native(false),
                     ])->columns(2),
-
-
 
                 Section::make('Keterangan')
                     ->schema([
@@ -106,7 +129,7 @@ class ProgramResource extends Resource
                             ]),
                     ]),
 
-                Section::make('Media')
+                Section::make('Media Program')
                     ->schema([
                         FileUpload::make('poster')
                             ->label('Poster Program')
@@ -116,6 +139,7 @@ class ProgramResource extends Resource
                             ->visibility('public')
                             ->maxSize(2048)
                             ->required()
+                            ->helperText('Poster spesifik untuk program ini (ukuran rekomendasi: 800x600px)')
                             ->columnSpanFull(),
                     ]),
             ]);
@@ -126,7 +150,10 @@ class ProgramResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('poster')
-                    ->label('Poster')
+                    ->label('Poster Program')
+                    ->circular(),
+                Tables\Columns\ImageColumn::make('poster_jenis_program')
+                    ->label('Poster Jenis')
                     ->circular(),
                 Tables\Columns\TextColumn::make('nama_program')
                     ->label('Nama Program')
@@ -138,11 +165,10 @@ class ProgramResource extends Resource
                     ->label('Jenis')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
-                        'Travel & Ekspedisi' => 'primary',
-                        'Volunteering' => 'success',
-                        'Leadership & Education' => 'warning',
-                        'Cultural Exchange' => 'info',
-                        'Adventure' => 'danger',
+                        'Jelajah Cakrawala Muda' => 'primary',
+                        'Cakrawala Volunteering on the Weekend' => 'success',
+                        'Sehari Jadi Volunteer' => 'warning',
+                        'Leadership & Education' => 'info',
                         default => 'gray',
                     })
                     ->searchable()
@@ -176,13 +202,11 @@ class ProgramResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('jenis_program')
                     ->label('Jenis Program')
-                    ->options([
-                        'Travel & Ekspedisi' => 'Travel & Ekspedisi',
-                        'Volunteering' => 'Volunteering',
-                        'Leadership & Education' => 'Leadership & Education',
-                        'Cultural Exchange' => 'Cultural Exchange',
-                        'Adventure' => 'Adventure',
-                    ]),
+                    ->options(function () {
+                        return Program::distinct('jenis_program')
+                            ->pluck('jenis_program', 'jenis_program')
+                            ->toArray();
+                    }),
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status')
                     ->options([
@@ -191,11 +215,11 @@ class ProgramResource extends Resource
                         'tutup' => 'Tutup',
                     ]),
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 DeleteBulkAction::make(),
             ])
             ->defaultSort('tanggal_mulai', 'desc');
@@ -203,9 +227,7 @@ class ProgramResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -215,5 +237,21 @@ class ProgramResource extends Resource
             'create' => CreateProgram::route('/create'),
             'edit' => EditProgram::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        $count = static::getModel()::count();
+
+        return match (true) {
+            $count > 20 => 'danger',
+            $count > 10 => 'warning',
+            default => 'primary',
+        };
     }
 }
