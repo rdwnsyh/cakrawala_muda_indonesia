@@ -209,7 +209,7 @@
 </div>
 
 <!-- CTA Section -->
-<div class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+<div class="py-20 bg-gradient-to-r from-white text-blue-600 to-blue-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">
             Bergabunglah Bersama Kami
@@ -218,12 +218,12 @@
             Jadilah bagian dari perjalanan menginspirasi Indonesia melalui aksi pemuda
         </p>
         <div class="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="{{ route('programs.index') }}" class="bg-white text-blue-700 px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
+            <a href="{{ route('programs.index') }}" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
                 Lihat Program Kami
             </a>
             <a href="https://wa.me/6281234567890?text=Halo, saya ingin bergabung dengan Cakrawala Muda Indonesia" 
                target="_blank"
-               class="bg-green-500 hover:bg-green-600 px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
+               class="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
                 Hubungi Kami via WhatsApp
             </a>
         </div>

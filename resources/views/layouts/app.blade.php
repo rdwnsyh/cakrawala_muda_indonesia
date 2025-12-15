@@ -197,16 +197,16 @@
           <a href="{{ route('home') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
             Home
           </a>
-          <a href="#" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+          <a href="{{ route('aboutus.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
             About Us
           </a>
           <a href="{{ route('programs.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
             Our Program
           </a>
-          <a href="{{ route('berita.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+          <a href="{{ route('alumni.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('alumni.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
             Alumni
           </a>
-          <a href="#" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+          <a href="{{ route('berita.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
             Update Berita
           </a>
         </div>
@@ -218,7 +218,7 @@
   @yield('content')
 
   <!-- Footer -->
-  <footer class="relative mt-20 bg-gray-900 text-white overflow-hidden">
+  <footer class="relative bg-gray-900 text-white overflow-hidden">
     <div class="absolute inset-0 bg-black/20"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
