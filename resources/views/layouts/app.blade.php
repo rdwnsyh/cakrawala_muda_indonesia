@@ -195,19 +195,19 @@
         </div>
         <div class="flex items-center space-x-2">
           <a href="{{ route('home') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Beranda
+            Home
           </a>
           <a href="#" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
-            Tentang
+            About Us
           </a>
           <a href="{{ route('programs.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Program
+            Our Program
           </a>
           <a href="{{ route('berita.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Berita
+            Alumni
           </a>
           <a href="#" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
-            Kontak
+            Update Berita
           </a>
         </div>
       </div>

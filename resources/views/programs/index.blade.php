@@ -12,7 +12,7 @@
             
             @if(request('jenis'))
             <div class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-lg">
-                <span>Filter: {{ request('jenis') }}</span>
+                <span>{{ request('jenis') }}</span>
                 <a href="{{ route('programs.index') }}" class="text-blue-500 hover:text-blue-700">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -23,7 +23,7 @@
         </div>
 
         <!-- Filter -->
-        @if($jenisPrograms->count() > 0)
+        {{-- @if($jenisPrograms->count() > 0)
         <div class="mb-8">
             <div class="flex flex-wrap gap-2">
                 <a href="{{ route('programs.index') }}" 
@@ -38,7 +38,7 @@
                 @endforeach
             </div>
         </div>
-        @endif
+        @endif --}}
 
         <!-- Program Grid -->
         @if($programs->count() > 0)
