@@ -189,48 +189,25 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20">
         <div class="flex items-center space-x-3">
-          <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <a href="{{ route('home') }}" class="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-all">
-            Cakrawala Muda
+          <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
+            <img src="{{ asset('images/logo.png') }}" alt="Cakrawala Muda Indonesia" class="h-16 w-auto transform group-hover:scale-105 transition-transform">
           </a>
         </div>
         <div class="flex items-center space-x-2">
-          <a href="{{ route('home') }}" class="px-4 py-2 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 font-medium transition-all">
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              <span>Home</span>
-            </div>
+          <a href="{{ route('home') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            Beranda
           </a>
-          <a href="{{ route('programs.index') }}" class="px-4 py-2 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 font-medium transition-all">
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
-              <span>Program</span>
-            </div>
+          <a href="#" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+            Tentang
           </a>
-          <a href="{{ route('berita.index') }}" class="px-4 py-2 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 font-medium transition-all">
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-              <span>Berita</span>
-            </div>
+          <a href="{{ route('programs.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            Program
           </a>
-          <a href="/admin" class="ml-4 px-6 py-2.5 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all">
-            <div class="flex items-center space-x-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span>Admin</span>
-            </div>
+          <a href="{{ route('berita.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            Berita
+          </a>
+          <a href="#" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+            Kontak
           </a>
         </div>
       </div>
@@ -247,12 +224,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
         <div class="space-y-4">
           <div class="flex items-center space-x-3">
-            <div class="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold">Cakrawala Muda</h3>
+            <img src="{{ asset('images/logo.png') }}" alt="Cakrawala Muda Indonesia" class="h-16 w-auto">
           </div>
           <p class="text-gray-300 leading-relaxed">Platform untuk generasi penjelajah dan pemimpin masa depan Indonesia.</p>
           <div class="flex space-x-4 pt-4">
