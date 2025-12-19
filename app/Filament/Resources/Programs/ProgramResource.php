@@ -51,21 +51,37 @@ class ProgramResource extends Resource
             ->schema([
                 Section::make('Informasi Program')
                     ->schema([
-                        TextInput::make('jenis_program')
+                        Select::make('jenis_program_id')
                             ->label('Jenis Program')
+                            ->relationship('jenisProgram', 'nama')
                             ->required()
-                            ->maxLength(255)
-                            ->placeholder('Contoh: Jelajah Cakrawala Muda, Cakrawala Volunteering, Sehari Jadi Volunteer'),
-
-                        FileUpload::make('poster_jenis_program')
-                            ->label('Poster Jenis Program')
-                            ->image()
-                            ->disk('public')
-                            ->directory('programs/jenis')
-                            ->visibility('public')
-                            ->maxSize(2048)
-                            ->helperText('Gambar untuk mewakili jenis program (ukuran rekomendasi: 400x300px)')
-                            ->columnSpanFull(),
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                TextInput::make('nama')
+                                    ->label('Nama Jenis Program')
+                                    ->required()
+                                    ->maxLength(255),
+                                FileUpload::make('poster')
+                                    ->label('Poster')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('jenis-programs')
+                                    ->visibility('public')
+                                    ->maxSize(2048)
+                                    ->imageEditor(false)
+                                    ->downloadable()
+                                    ->openable(),
+                                Select::make('status')
+                                    ->label('Status')
+                                    ->options([
+                                        'aktif' => 'Aktif',
+                                        'selesai' => 'Selesai',
+                                    ])
+                                    ->default('aktif')
+                                    ->required(),
+                            ])
+                            ->placeholder('Pilih Jenis Program'),
 
                         TextInput::make('nama_program')
                             ->label('Nama Program')
@@ -139,6 +155,9 @@ class ProgramResource extends Resource
                             ->visibility('public')
                             ->maxSize(2048)
                             ->required()
+                            ->imageEditor(false)
+                            ->downloadable()
+                            ->openable()
                             ->helperText('Poster spesifik untuk program ini (ukuran rekomendasi: 800x600px)')
                             ->columnSpanFull(),
                     ]),
@@ -152,25 +171,16 @@ class ProgramResource extends Resource
                 Tables\Columns\ImageColumn::make('poster')
                     ->label('Poster Program')
                     ->circular(),
-                Tables\Columns\ImageColumn::make('poster_jenis_program')
-                    ->label('Poster Jenis')
-                    ->circular(),
                 Tables\Columns\TextColumn::make('nama_program')
                     ->label('Nama Program')
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
                     ->limit(50),
-                Tables\Columns\TextColumn::make('jenis_program')
-                    ->label('Jenis')
+                Tables\Columns\TextColumn::make('jenisProgram.nama')
+                    ->label('Jenis Program')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Jelajah Cakrawala Muda' => 'primary',
-                        'Cakrawala Volunteering on the Weekend' => 'success',
-                        'Sehari Jadi Volunteer' => 'warning',
-                        'Leadership & Education' => 'info',
-                        default => 'gray',
-                    })
+                    ->color('primary')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('lokasi')
@@ -200,13 +210,11 @@ class ProgramResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('jenis_program')
+                Tables\Filters\SelectFilter::make('jenis_program_id')
                     ->label('Jenis Program')
-                    ->options(function () {
-                        return Program::distinct('jenis_program')
-                            ->pluck('jenis_program', 'jenis_program')
-                            ->toArray();
-                    }),
+                    ->relationship('jenisProgram', 'nama')
+                    ->searchable()
+                    ->preload(),
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Status')
                     ->options([

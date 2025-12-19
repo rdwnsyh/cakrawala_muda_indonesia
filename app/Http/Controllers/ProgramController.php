@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisProgram;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -13,15 +14,16 @@ class ProgramController extends Controller
         
         // Filter by jenis program if provided
         if ($request->has('jenis')) {
-            $query->where('jenis_program', $request->jenis);
+            $query->whereHas('jenisProgram', function($q) use ($request) {
+                $q->where('nama', $request->jenis);
+            });
         }
         
         $programs = $query->orderBy('tanggal_mulai', 'desc')->paginate(12);
         
         // Get unique program types for filter
-        $jenisPrograms = Program::distinct('jenis_program')
-            ->pluck('jenis_program')
-            ->filter()
+        $jenisPrograms = JenisProgram::whereHas('programs')
+            ->pluck('nama')
             ->values();
             
         return view('programs.index', compact('programs', 'jenisPrograms'));

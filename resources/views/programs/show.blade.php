@@ -17,7 +17,7 @@
         <div class="text-center text-white">
             <!-- Badge Jenis Program -->
             <span class="inline-block px-6 py-3 bg-white/20 backdrop-blur-md rounded-full text-lg font-semibold mb-6">
-                {{ $program->jenis_program }}
+                {{ $program->jenisProgram->nama ?? 'Program' }}
             </span>
 
             <!-- Judul Program -->
@@ -83,7 +83,7 @@
                     <div class="space-y-6">
                         <div>
                             <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Jenis</div>
-                            <div class="text-lg font-medium text-gray-900">{{ $program->jenis_program }}</div>
+                            <div class="text-lg font-medium text-gray-900">{{ $program->jenisProgram->nama ?? 'Program' }}</div>
                         </div>
 
                         @if($program->lokasi)

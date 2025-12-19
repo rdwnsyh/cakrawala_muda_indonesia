@@ -88,7 +88,7 @@
                     <!-- Jenis Program Badge -->
                     <div class="absolute top-4 left-4">
                         <span class="px-4 py-2 text-sm font-bold bg-white/90 backdrop-blur-sm rounded-full shadow">
-                            {{ $program->jenis_program }}
+                            {{ $program->jenisProgram->nama ?? 'Program' }}
                         </span>
                     </div>
                 </div>

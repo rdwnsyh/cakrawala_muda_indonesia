@@ -115,7 +115,7 @@
                             <div class="md:w-3/5 p-8 md:p-12">
                                 <div class="flex items-center gap-2 mb-4">
                                     <span class="px-3 py-1 bg-white/20 text-white text-sm font-semibold rounded-full">
-                                        {{ $ongoingProgramItem->jenis_program ?? 'Program Unggulan' }}
+                                        {{ $ongoingProgramItem->jenisProgram->nama ?? 'Program Unggulan' }}
                                     </span>
                                     <span
                                         class="px-3 py-1 bg-yellow-400/20 text-yellow-300 text-sm font-semibold rounded-full">✨
@@ -220,9 +220,9 @@
                                     <div
                                         class="group bg-white rounded-2xl shadow-lg overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 w-full">
                                         <div class="relative h-87 overflow-hidden bg-gray-100">
-                                            @if ($jenisProgram->poster_jenis_program)
-                                                <img src="{{ asset('storage/' . $jenisProgram->poster_jenis_program) }}"
-                                                    alt="{{ $jenisProgram->jenis_program }}"
+                                            @if ($jenisProgram->poster)
+                                                <img src="{{ asset('storage/' . $jenisProgram->poster) }}"
+                                                    alt="{{ $jenisProgram->nama }}"
                                                     class="w-full h-full object-cover object-top">
                                             @else
                                                 <div
@@ -235,6 +235,24 @@
                                                     </svg>
                                                 </div>
                                             @endif
+                                            
+                                            <!-- Status Badge di pojok kanan atas -->
+                                            <div class="absolute top-4 right-4">
+                                                @if($jenisProgram->status == "Aktif")
+                                                    <span class="px-3 py-1.5 text-xs font-bold bg-green-500 text-white rounded-full shadow-lg">
+                                                         Sedang Dibuka
+                                                    </span>
+                                                {{-- @elseif($jenisProgram->status == "Segera")
+                                                    <span class="px-3 py-1.5 text-xs font-bold bg-yellow-500 text-white rounded-full shadow-lg">
+                                                         Segera
+                                                    </span> --}}
+                                                @else
+                                                    <span class="px-3 py-1.5 text-xs font-bold bg-gray-500 text-white rounded-full shadow-lg">
+                                                         Selesai
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            
                                             <div
                                                 class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                             </div>
@@ -242,10 +260,11 @@
                                         <div class="p-6">
                                             <h3
                                                 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors text-center">
-                                                {{ $jenisProgram->jenis_program }}
+                                                {{ $jenisProgram->nama }}
                                             </h3>
+                                            
                                             <div class="pt-4 border-t border-gray-100 text-center">
-                                                <a href="{{ route('programs.index', ['jenis' => $jenisProgram->jenis_program]) }}"
+                                                <a href="{{ route('programs.index', ['jenis' => $jenisProgram->nama]) }}"
                                                     class="group/btn inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors">
                                                     <span>Detail</span>
                                                     <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform"

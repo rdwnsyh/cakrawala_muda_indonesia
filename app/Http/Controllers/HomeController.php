@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Berita;
+use App\Models\JenisProgram;
 use App\Models\Program;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -19,11 +20,20 @@ class HomeController extends Controller
         // Count program aktif untuk stats
         $activeProgramsCount = Program::where('status', 'aktif')->count();
 
-        // Ambil jenis program unik untuk slider
-        $jenisPrograms = Program::select('jenis_program', 'poster_jenis_program')
-            ->distinct('jenis_program')
-            ->whereNotNull('jenis_program')
-            ->whereNotNull('poster_jenis_program')
+        // Ambil jenis program dari tabel jenis_programs dengan count programs per status
+        $jenisPrograms = JenisProgram::whereHas('programs')
+            ->withCount([
+                'programs',
+                'programs as aktif_count' => function($query) {
+                    $query->where('status', 'aktif');
+                },
+                'programs as segera_count' => function($query) {
+                    $query->where('status', 'segera');
+                },
+                'programs as selesai_count' => function($query) {
+                    $query->where('status', 'selesai');
+                }
+            ])
             ->get();
 
         $testimonials = Testimonial::where('is_featured', true)

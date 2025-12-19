@@ -87,7 +87,10 @@ class BeritaResource extends Resource
                             ->directory('beritas')
                             ->visibility('public')
                             ->maxSize(2048)
-                            ->required(),
+                            ->required()
+                            ->imageEditor(false)
+                            ->downloadable()
+                            ->openable(),
 
                         RichEditor::make('body')
                             ->label('Isi Berita')
