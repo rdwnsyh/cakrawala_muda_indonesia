@@ -16,6 +16,9 @@ class HomeController extends Controller
             ->orderBy('tanggal_mulai', 'desc')
             ->first();
 
+        // Count program aktif untuk stats
+        $activeProgramsCount = Program::where('status', 'aktif')->count();
+
         // Ambil jenis program unik untuk slider
         $jenisPrograms = Program::select('jenis_program', 'poster_jenis_program')
             ->distinct('jenis_program')
@@ -31,6 +34,6 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        return view('home', compact('ongoingProgram', 'jenisPrograms', 'testimonials', 'beritas'));
+        return view('home', compact('ongoingProgram', 'activeProgramsCount', 'jenisPrograms', 'testimonials', 'beritas'));
     }
 }
