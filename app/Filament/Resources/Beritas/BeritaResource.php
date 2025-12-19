@@ -40,10 +40,45 @@ class BeritaResource extends Resource
             ->components([
                 Section::make('Informasi Berita')
                     ->schema([
+                        Select::make('jenis_berita')
+                            ->label('Jenis Berita')
+                            ->options([
+                                'Program' => 'Program',
+                                'Kegiatan' => 'Kegiatan',
+                                'Alumni' => 'Alumni',
+                                'Umum' => 'Umum',
+                            ])
+                            ->required()
+                            ->native(false),
+
                         TextInput::make('title')
                             ->label('Judul Berita')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('slug', Str::slug($state));
+                            }),
+
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(ignoreRecord: true)
+                            ->helperText('URL-friendly versi dari judul'),
+
+                        TextInput::make('penulis')
+                            ->label('Penulis')
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('Nama Penulis'),
+
+                        DatePicker::make('tanggal')
+                            ->label('Tanggal Berita')
+                            ->required()
+                            ->native(false)
+                            ->displayFormat('d/m/Y')
+                            ->default(now()),
 
                         FileUpload::make('gambar_berita')
                             ->label('Gambar Berita')
@@ -54,14 +89,26 @@ class BeritaResource extends Resource
                             ->maxSize(2048)
                             ->required(),
 
-                        TextInput::make('link')
-                            ->label('Link Berita')
-                            ->url()
+                        RichEditor::make('body')
+                            ->label('Isi Berita')
                             ->required()
-                            ->placeholder('https://www.kompas.com/contoh-berita')
-                            ->helperText('Masukkan link ke berita asli (contoh: berita dari Kompas, Detik, dll)'),
+                            ->columnSpanFull()
+                            ->toolbarButtons([
+                                'bold',
+                                'italic',
+                                'underline',
+                                'strike',
+                                'link',
+                                'bulletList',
+                                'orderedList',
+                                'h2',
+                                'h3',
+                                'blockquote',
+                                'undo',
+                                'redo',
+                            ]),
                     ])
-                    ->columns(1),
+                    ->columns(2),
             ]);
     }
 
@@ -72,26 +119,48 @@ class BeritaResource extends Resource
                 Tables\Columns\ImageColumn::make('gambar_berita')
                     ->label('Gambar')
                     ->circular(),
+                Tables\Columns\TextColumn::make('jenis_berita')
+                    ->label('Jenis')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Program' => 'success',
+                        'Kegiatan' => 'info',
+                        'Alumni' => 'warning',
+                        'Umum' => 'gray',
+                        default => 'gray',
+                    })
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
                     ->limit(50),
-                Tables\Columns\TextColumn::make('link')
-                    ->label('Link')
-                    ->limit(50)
-                    ->url(fn($record) => $record->link)
-                    ->openUrlInNewTab()
-                    ->icon('heroicon-o-arrow-top-right-on-square')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('penulis')
+                    ->label('Penulis')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('tanggal')
+                    ->label('Tanggal')
+                    ->date('d M Y')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([])
+            ->filters([
+                Tables\Filters\SelectFilter::make('jenis_berita')
+                    ->label('Jenis Berita')
+                    ->options([
+                        'Program' => 'Program',
+                        'Kegiatan' => 'Kegiatan',
+                        'Alumni' => 'Alumni',
+                        'Umum' => 'Umum',
+                    ]),
+            ])
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),

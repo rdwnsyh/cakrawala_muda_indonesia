@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Berita extends Model
 {
     protected $fillable = [
+        'jenis_berita',
         'title',
+        'slug',
+        'penulis',
+        'tanggal',
         'gambar_berita',
-        'link',
+        'body',
+    ];
+
+    protected $casts = [
+        'tanggal' => 'date',
     ];
 }
