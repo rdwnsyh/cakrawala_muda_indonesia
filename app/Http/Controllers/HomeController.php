@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumni;
 use App\Models\Berita;
 use App\Models\JenisProgram;
 use App\Models\Program;
@@ -36,6 +37,13 @@ class HomeController extends Controller
             ])
             ->get();
 
+        // Ambil alumni dengan testimoni untuk ditampilkan
+        $alumniTestimonials = Alumni::with('jenisProgram')
+            ->whereNotNull('testimoni')
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
         $testimonials = Testimonial::where('is_featured', true)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -44,6 +52,6 @@ class HomeController extends Controller
             ->take(3)
             ->get();
 
-        return view('home', compact('ongoingProgram', 'activeProgramsCount', 'jenisPrograms', 'testimonials', 'beritas'));
+        return view('home', compact('ongoingProgram', 'activeProgramsCount', 'jenisPrograms', 'alumniTestimonials', 'testimonials', 'beritas'));
     }
 }

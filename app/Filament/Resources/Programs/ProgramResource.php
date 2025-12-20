@@ -66,7 +66,7 @@ class ProgramResource extends Resource
                                     ->label('Poster')
                                     ->image()
                                     ->disk('public')
-                                    ->directory('jenis-programs')
+                                    ->directory('programs')
                                     ->visibility('public')
                                     ->maxSize(2048)
                                     ->imageEditor(false)
@@ -206,7 +206,7 @@ class ProgramResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('poster')
                     ->label('Poster Program')
-                    ->circular(),
+                    ->disk('public'),
                 Tables\Columns\TextColumn::make('nama_program')
                     ->label('Nama Program')
                     ->searchable()

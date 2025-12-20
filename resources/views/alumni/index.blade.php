@@ -48,15 +48,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
             <div class="bg-white rounded-3xl shadow-xl p-8">
-                <div class="text-5xl font-bold text-blue-600 mb-4">500+</div>
+                <div class="text-5xl font-bold text-blue-600 mb-4">{{ $totalAlumni }}+</div>
                 <p class="text-xl text-gray-700 font-semibold">Total Alumni</p>
             </div>
             <div class="bg-white rounded-3xl shadow-xl p-8">
-                <div class="text-5xl font-bold text-indigo-600 mb-4">25+</div>
+                <div class="text-5xl font-bold text-indigo-600 mb-4">{{ $totalProvinces }}+</div>
                 <p class="text-xl text-gray-700 font-semibold">Provinsi di Indonesia</p>
             </div>
             <div class="bg-white rounded-3xl shadow-xl p-8">
-                <div class="text-5xl font-bold text-purple-600 mb-4">150+</div>
+                <div class="text-5xl font-bold text-purple-600 mb-4">{{ $totalAlumni > 0 ? floor($totalAlumni * 0.3) : 150 }}+</div>
                 <p class="text-xl text-gray-700 font-semibold">Kini Berkarya di Berbagai Bidang</p>
             </div>
         </div>
@@ -78,118 +78,42 @@
 
         <!-- Grid Alumni (contoh 6 alumni, bisa ditambah dengan loop jika dari database) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- Alumni 1 -->
+            @forelse($alumni as $alumniItem)
+            <!-- Alumni Item -->
             <div class="group bg-gradient-to-br from-blue-50 to-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
                 <div class="relative h-80 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                         alt="Ahmad Rizki" 
+                    <img src="{{ asset('storage/' . $alumniItem->foto) }}" 
+                         alt="{{ $alumniItem->nama }}" 
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-2xl font-bold">Ahmad Rizki</h3>
-                        <p class="text-lg opacity-90">Alumni Jelajah Cakrawala Muda 2023</p>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-700 mb-4 italic">
-                        "Program ini membuka cakrawala saya tentang leadership dan networking nasional. Kini saya aktif sebagai social entrepreneur di bidang pendidikan pedesaan."
-                    </p>
-                    <div class="flex items-center gap-4 text-sm text-gray-600">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <span>Jakarta</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <span>Social Entrepreneur</span>
-                        </div>
+                        <h3 class="text-2xl font-bold">{{ $alumniItem->nama }}</h3>
+                        <p class="text-lg opacity-90">{{ $alumniItem->jenisProgram->nama ?? 'Program' }}</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Alumni 2 -->
-            <div class="group bg-gradient-to-br from-indigo-50 to-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
-                <div class="relative h-80 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                         alt="Siti Maulida" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-2xl font-bold">Siti Maulida</h3>
-                        <p class="text-lg opacity-90">Alumni Volunteering Weekend 2023</p>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-700 mb-4 italic">
-                        "Pengalaman volunteering membuka mata saya tentang isu lingkungan. Sekarang saya mengelola komunitas daur ulang di kampus dan mengajar anak-anak tentang sustainability."
-                    </p>
-                    <div class="flex items-center gap-4 text-sm text-gray-600">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <span>Yogyakarta</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <span>Environmental Activist</span>
-                        </div>
-                    </div>
+            @empty
+            <!-- Placeholder jika tidak ada data -->
+            <div class="col-span-full text-center py-12">
+                <div class="max-w-md mx-auto">
+                    <svg class="w-24 h-24 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Belum Ada Alumni</h3>
+                    <p class="text-gray-600">Data alumni akan ditampilkan di sini setelah ditambahkan dari admin panel.</p>
                 </div>
             </div>
-
-            <!-- Alumni 3 -->
-            <div class="group bg-gradient-to-br from-purple-50 to-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
-                <div class="relative h-80 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                         alt="Rizky Pratama" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h3 class="text-2xl font-bold">Rizky Pratama</h3>
-                        <p class="text-lg opacity-90">Alumni Sehari Jadi Volunteer 2024</p>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-700 mb-4 italic">
-                        "Satu hari volunteering mengubah pandangan saya tentang kontribusi sosial. Kini saya mendirikan startup edukasi untuk anak marginal."
-                    </p>
-                    <div class="flex items-center gap-4 text-sm text-gray-600">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                            </svg>
-                            <span>Bandung</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            <span>Founder EdTech Startup</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tambahkan alumni lain sesuai kebutuhan -->
-            <!-- Contoh Alumni 4-6 bisa ditambahkan dengan pola yang sama -->
+            @endforelse
         </div>
 
         <!-- Tombol Load More (jika data banyak) -->
+        @if($alumni->count() > 0)
         <div class="text-center mt-16">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-12 py-5 rounded-2xl font-bold text-xl transition shadow-lg">
-                Lihat Lebih Banyak Alumni
-            </button>
+            <p class="text-gray-600 text-lg">
+                Menampilkan {{ $alumni->count() }} alumni inspiratif
+            </p>
         </div>
+        @endif
     </div>
 </div>
 

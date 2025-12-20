@@ -14,9 +14,6 @@
 
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-48">
             <div class="text-center space-y-8">
-                <!-- Badge -->
-
-
                 <!-- Main Heading -->
                 <h1 class="text-5xl md:text-7xl font-bold leading-tight animate-fadeInUp" style="animation-delay: 0.2s;">
                     Cakrawala Muda<br />
@@ -189,8 +186,8 @@
         </div>
     </div>
 
-    <!-- Section 3: Our Program (Slider dengan Drag & No Scrollbar) -->
-<div id="our-program" class="py-20 bg-gray-50">
+    <!-- Section 3: Our Program (Slider Tanpa JavaScript - Tailwind Only) -->
+    <div id="our-program" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -203,74 +200,54 @@
             </div>
 
             @if ($jenisPrograms && $jenisPrograms->count() > 0)
-                <div class="relative md:w-4/5 mx-auto">
-                    <!-- Carousel Container -->
-                    <div class="overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing px-12"
-                        id="program-carousel">
-                        <div class="flex gap-6 pb-8 px-4 md:px-0 -mx-4 md:mx-0 
-                            @if($jenisPrograms->take(3)->count() == 1) justify-center
-                            @elseif($jenisPrograms->take(3)->count() == 2) justify-center
-                            @endif">
-                            @foreach ($jenisPrograms->take(3) as $jenisProgram)
-                                <div class="flex-shrink-0 snap-center 
-                                    @if($jenisPrograms->take(3)->count() == 1) w-full md:w-1/2 lg:w-1/3
-                                    @elseif($jenisPrograms->take(3)->count() == 2) w-full md:w-1/2 lg:w-5/12
-                                    @else w-full md:w-1/2 lg:w-1/3
-                                    @endif px-4 md:px-0">
-                                    <div
-                                        class="group bg-white rounded-2xl shadow-lg overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 w-full">
-                                        <div class="relative h-87 overflow-hidden bg-gray-100">
+                <div class="relative group">
+                    <!-- Scroll Container dengan Scroll Snap -->
+                    <div class="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory -mx-4 px-4">
+                        <div class="flex gap-8 min-w-max pb-4">
+                            @foreach ($jenisPrograms->take(9) as $jenisProgram) <!-- Ambil lebih banyak agar bisa scroll -->
+                                <div class="flex-shrink-0 w-full sm:w-80 lg:w-96 snap-start">
+                                    <div class="group bg-white rounded-2xl shadow-lg overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                                        <div class="relative h-120 overflow-hidden bg-gray-100">
                                             @if ($jenisProgram->poster)
                                                 <img src="{{ asset('storage/' . $jenisProgram->poster) }}"
-                                                    alt="{{ $jenisProgram->nama }}"
-                                                    class="w-full h-full object-cover object-top">
+                                                     alt="{{ $jenisProgram->nama }}"
+                                                     class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110">
                                             @else
-                                                <div
-                                                    class="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
-                                                    <svg class="w-16 h-16 text-white opacity-50" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                <div class="w-full h-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
+                                                    <svg class="w-16 h-16 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                              d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>
                                                 </div>
                                             @endif
-                                            
-                                            <!-- Status Badge di pojok kanan atas -->
+
+                                            <!-- Status Badge -->
                                             <div class="absolute top-4 right-4">
-                                                @if($jenisProgram->status == "aktif")
+                                                @if ($jenisProgram->status == 'aktif')
                                                     <span class="px-3 py-1.5 text-xs font-bold bg-green-500 text-white rounded-full shadow-lg">
-                                                         Sedang Dibuka
+                                                        Sedang Dibuka
                                                     </span>
-                                                {{-- @elseif($jenisProgram->status == "Segera")
-                                                    <span class="px-3 py-1.5 text-xs font-bold bg-yellow-500 text-white rounded-full shadow-lg">
-                                                         Segera
-                                                    </span> --}}
                                                 @else
                                                     <span class="px-3 py-1.5 text-xs font-bold bg-gray-500 text-white rounded-full shadow-lg">
-                                                         Selesai
+                                                        Selesai
                                                     </span>
                                                 @endif
                                             </div>
-                                            
-                                            <div
-                                                class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            </div>
+
+                                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                         </div>
+
                                         <div class="p-6">
-                                            <h3
-                                                class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors text-center">
+                                            <h3 class="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors text-center">
                                                 {{ $jenisProgram->nama }}
                                             </h3>
-                                            
+
                                             <div class="pt-4 border-t border-gray-100 text-center">
                                                 <a href="{{ route('programs.index', ['jenis' => $jenisProgram->nama]) }}"
-                                                    class="group/btn inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors">
+                                                   class="group/btn inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-700 transition-colors">
                                                     <span>Detail</span>
-                                                    <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform"
-                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                                    <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                                     </svg>
                                                 </a>
                                             </div>
@@ -281,31 +258,20 @@
                         </div>
                     </div>
 
-                    <!-- Prev / Next Buttons - Only show if more than 1 item -->
-                    @if($jenisPrograms->take(3)->count() > 1)
-                        <button
-                            onclick="document.getElementById('program-carousel').scrollBy({left: -400, behavior: 'smooth'})"
-                            class="absolute left-4 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-10">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-                        <button onclick="document.getElementById('program-carousel').scrollBy({left: 400, behavior: 'smooth'})"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 z-10">
-                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                    <!-- Tombol Prev / Next (muncul saat hover di desktop) -->
+                    <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur p-4 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 z-10"
+                            onclick="document.querySelector('.overflow-x-auto').scrollBy({left: -400, behavior: 'smooth'})">
+                        <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
 
-                        <!-- Dots Indicator -->
-                        <div class="flex justify-center gap-2 mt-8">
-                            @for ($i = 0; $i < $jenisPrograms->take(3)->count(); $i++)
-                                <div
-                                    class="w-2 h-2 rounded-full {{ $i == 0 ? 'bg-blue-600 w-8' : 'bg-gray-300' }} transition-all duration-300 dot-indicator">
-                                </div>
-                            @endfor
-                        </div>
-                    @endif
+                    <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur p-4 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 z-10"
+                            onclick="document.querySelector('.overflow-x-auto').scrollBy({left: 400, behavior: 'smooth'})">
+                        <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
                 </div>
             @else
                 <div class="text-center py-12">
@@ -343,7 +309,36 @@
             </div>
 
             <!-- Testimonial Grid -->
-            @if ($testimonials && $testimonials->count() > 0)
+            @if ($alumniTestimonials && $alumniTestimonials->count() > 0)
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach ($alumniTestimonials as $alumni)
+                        <div
+                            class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300">
+                            <div class="flex items-center mb-6">
+                                <div class="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+                                    @if ($alumni->foto)
+                                        <img src="{{ asset('storage/' . $alumni->foto) }}" alt="{{ $alumni->nama }}"
+                                            class="w-full h-full object-cover">
+                                    @else
+                                        <div
+                                            class="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl">
+                                            {{ strtoupper(substr($alumni->nama, 0, 2)) }}
+                                        </div>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-lg">{{ $alumni->nama }}</h4>
+                                    <p class="text-sm text-blue-600">{{ $alumni->jenisProgram->nama ?? 'Program' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 italic leading-relaxed">
+                                "{{ Str::limit($alumni->testimoni, 200) }}"
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+            @elseif ($testimonials && $testimonials->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach ($testimonials as $testimonial)
                         <div
@@ -412,7 +407,17 @@
 
             <!-- View All Testimonials -->
             <div class="text-center mt-16">
-                @if ($testimonials && $testimonials->count() > 0)
+                @if ($alumniTestimonials && $alumniTestimonials->count() > 0)
+                    <a href="{{ route('alumni.index') }}"
+                        class="group inline-flex items-center gap-2 bg-white border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-xl font-bold text-lg hover:bg-blue-50 hover:shadow-lg transition-all duration-300">
+                        <span>Lihat Semua Alumni</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                @elseif ($testimonials && $testimonials->count() > 0)
                     <a href="{{ route('testimonials.index') }}"
                         class="group inline-flex items-center gap-2 bg-white border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-xl font-bold text-lg hover:bg-blue-50 hover:shadow-lg transition-all duration-300">
                         <span>Lihat Semua Testimoni</span>
@@ -427,134 +432,30 @@
         </div>
     </div>
 
-    <!-- JavaScript untuk Drag Scroll + Update Dots -->
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const carousel = document.getElementById('program-carousel');
-                if (!carousel) return;
-
-                let isDown = false;
-                let startX;
-                let scrollLeft;
-
-                // Mouse drag
-                carousel.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    carousel.classList.add('active');
-                    startX = e.pageX - carousel.offsetLeft;
-                    scrollLeft = carousel.scrollLeft;
-                });
-
-                carousel.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    carousel.classList.remove('active');
-                });
-
-                carousel.addEventListener('mouseup', () => {
-                    isDown = false;
-                    carousel.classList.remove('active');
-                });
-
-                carousel.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    const x = e.pageX - carousel.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    carousel.scrollLeft = scrollLeft - walk;
-                });
-
-                // Touch swipe (mobile)
-                carousel.addEventListener('touchstart', (e) => {
-                    isDown = true;
-                    startX = e.touches[0].pageX - carousel.offsetLeft;
-                    scrollLeft = carousel.scrollLeft;
-                });
-
-                carousel.addEventListener('touchend', () => {
-                    isDown = false;
-                });
-
-                carousel.addEventListener('touchmove', (e) => {
-                    if (!isDown) return;
-                    const x = e.touches[0].pageX - carousel.offsetLeft;
-                    const walk = (x - startX) * 2;
-                    carousel.scrollLeft = scrollLeft - walk;
-                });
-
-                // Update dots berdasarkan scroll position
-                const dots = document.querySelectorAll('.dot-indicator');
-                const updateDots = () => {
-                    const scrollPos = carousel.scrollLeft;
-                    const carouselWidth = carousel.offsetWidth;
-                    const currentIndex = Math.round(scrollPos / carouselWidth);
-                    dots.forEach((dot, index) => {
-                        if (index === currentIndex) {
-                            dot.classList.add('bg-blue-600', 'w-8');
-                            dot.classList.remove('bg-gray-300', 'w-2');
-                        } else {
-                            dot.classList.add('bg-gray-300', 'w-2');
-                            dot.classList.remove('bg-blue-600', 'w-8');
-                        }
-                    });
-                };
-
-                carousel.addEventListener('scroll', updateDots);
-                window.addEventListener('resize', updateDots);
-                updateDots(); // initial
-            });
-        </script>
-    @endpush
-
-    <!-- CSS Custom untuk Hilangkan Scrollbar -->
+    <!-- CSS Custom -->
     <style>
-        /* Hilangkan scrollbar sepenuhnya di semua browser */
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            /* IE and Edge */
-            scrollbar-width: none;
-            /* Firefox */
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-            /* Chrome, Safari, Opera */
-            width: 0 !important;
-            height: 0 !important;
-            background: transparent;
-        }
-
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
-
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
 
         .animate-fadeInUp {
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
         }
-
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Sembunyikan scrollbar tapi tetap bisa scroll */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;     /* Firefox */
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;             /* Chrome, Safari, Opera */
         }
     </style>
 @endsection
