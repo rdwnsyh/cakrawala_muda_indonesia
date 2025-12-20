@@ -75,6 +75,41 @@
                 </div>
             </div>
 
+            <!-- Galeri Foto Program -->
+            @if($program->galeri_1 || $program->galeri_2 || $program->galeri_3)
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <h2 class="text-3xl font-bold mb-8 text-gray-900">Galeri Foto</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    @if($program->galeri_1)
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <img src="{{ asset('storage/' . $program->galeri_1) }}" 
+                             alt="Galeri {{ $program->nama_program }} 1" 
+                             class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    @endif
+
+                    @if($program->galeri_2)
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <img src="{{ asset('storage/' . $program->galeri_2) }}" 
+                             alt="Galeri {{ $program->nama_program }} 2" 
+                             class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    @endif
+
+                    @if($program->galeri_3)
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <img src="{{ asset('storage/' . $program->galeri_3) }}" 
+                             alt="Galeri {{ $program->nama_program }} 3" 
+                             class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            @endif
+
             <!-- Informasi Program + Apa yang Didapatkan -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Card Informasi Program -->

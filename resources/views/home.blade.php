@@ -238,7 +238,7 @@
                                             
                                             <!-- Status Badge di pojok kanan atas -->
                                             <div class="absolute top-4 right-4">
-                                                @if($jenisProgram->status == "Aktif")
+                                                @if($jenisProgram->status == "aktif")
                                                     <span class="px-3 py-1.5 text-xs font-bold bg-green-500 text-white rounded-full shadow-lg">
                                                          Sedang Dibuka
                                                     </span>

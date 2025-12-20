@@ -160,7 +160,43 @@ class ProgramResource extends Resource
                             ->openable()
                             ->helperText('Poster spesifik untuk program ini (ukuran rekomendasi: 800x600px)')
                             ->columnSpanFull(),
-                    ]),
+
+                        FileUpload::make('galeri_1')
+                            ->label('Galeri Foto 1')
+                            ->image()
+                            ->disk('public')
+                            ->directory('programs/galeri')
+                            ->visibility('public')
+                            ->maxSize(2048)
+                            ->imageEditor(false)
+                            ->downloadable()
+                            ->openable()
+                            ->helperText('Foto galeri program (opsional)'),
+
+                        FileUpload::make('galeri_2')
+                            ->label('Galeri Foto 2')
+                            ->image()
+                            ->disk('public')
+                            ->directory('programs/galeri')
+                            ->visibility('public')
+                            ->maxSize(2048)
+                            ->imageEditor(false)
+                            ->downloadable()
+                            ->openable()
+                            ->helperText('Foto galeri program (opsional)'),
+
+                        FileUpload::make('galeri_3')
+                            ->label('Galeri Foto 3')
+                            ->image()
+                            ->disk('public')
+                            ->directory('programs/galeri')
+                            ->visibility('public')
+                            ->maxSize(2048)
+                            ->imageEditor(false)
+                            ->downloadable()
+                            ->openable()
+                            ->helperText('Foto galeri program (opsional)'),
+                    ])->columns(3),
             ]);
     }
 
