@@ -47,7 +47,9 @@ class PengurusForm
                             ->label('Foto Profil')
                             ->image()
                             ->required()
+                            ->disk('public')
                             ->directory('pengurus')
+                            ->visibility('public')
                             ->imageEditor()
                             ->imageEditorAspectRatios([
                                 '1:1',

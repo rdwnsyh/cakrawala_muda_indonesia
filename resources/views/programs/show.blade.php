@@ -5,9 +5,9 @@
 @section('content')
 <!-- Hero Section dengan Poster Besar & Overlay -->
 <div class="relative h-screen max-h-screen overflow-hidden">
-    <img src="{{ asset('storage/' . $program->poster) }}" 
-         alt="{{ $program->nama_program }}" 
-         class="absolute inset-0 w-full h-full object-cover">
+    <img src="{{ asset('storage/' . $program->poster) }}"
+        alt="{{ $program->nama_program }}"
+        class="absolute inset-0 w-full h-full object-cover">
 
     <!-- Overlay Gelap -->
     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
@@ -58,10 +58,10 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <!-- Poster Program di Sebelah Kiri -->
         <div class="lg:col-span-1">
-            <div class="sticky top-8">
-                <img src="{{ asset('storage/' . $program->poster) }}" 
-                     alt="{{ $program->nama_program }}" 
-                     class="w-full rounded-3xl shadow-2xl object-cover">
+            <div class="sticky top-8 self-start">
+                <img src="{{ asset('storage/' . $program->poster) }}"
+                    alt="{{ $program->nama_program }}"
+                    class="w-full rounded-3xl shadow-2xl object-cover max-h-[calc(100vh-4rem)]">
             </div>
         </div>
 
@@ -81,123 +81,136 @@
                 <h2 class="text-3xl font-bold mb-8 text-gray-900">Galeri Foto</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @if($program->galeri_1)
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-                        <img src="{{ asset('storage/' . $program->galeri_1) }}" 
-                             alt="Galeri {{ $program->nama_program }} 1" 
-                             class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                        onclick="openModal('{{ asset('storage/' . $program->galeri_1) }}')">
+                        <img src="{{ asset('storage/' . $program->galeri_1) }}"
+                            alt="Galeri {{ $program->nama_program }} 1"
+                            class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">Lihat Foto</span>
+                        </div>
                     </div>
                     @endif
 
                     @if($program->galeri_2)
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-                        <img src="{{ asset('storage/' . $program->galeri_2) }}" 
-                             alt="Galeri {{ $program->nama_program }} 2" 
-                             class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                        onclick="openModal('{{ asset('storage/' . $program->galeri_2) }}')">
+                        <img src="{{ asset('storage/' . $program->galeri_2) }}"
+                            alt="Galeri {{ $program->nama_program }} 2"
+                            class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">Lihat Foto</span>
+                        </div>
                     </div>
                     @endif
 
                     @if($program->galeri_3)
-                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-                        <img src="{{ asset('storage/' . $program->galeri_3) }}" 
-                             alt="Galeri {{ $program->nama_program }} 3" 
-                             class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                        onclick="openModal('{{ asset('storage/' . $program->galeri_3) }}')">
+                        <img src="{{ asset('storage/' . $program->galeri_3) }}"
+                            alt="Galeri {{ $program->nama_program }} 3"
+                            class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">Lihat Foto</span>
+                        </div>
                     </div>
                     @endif
                 </div>
             </div>
             @endif
 
-            <!-- Informasi Program + Apa yang Didapatkan -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Card Informasi Program -->
-                <div class="bg-white rounded-3xl shadow-xl p-8">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-900">Informasi Program</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Jenis</div>
-                            <div class="text-lg font-medium text-gray-900">{{ $program->jenisProgram->nama ?? 'Program' }}</div>
-                        </div>
+            <!-- Informasi Program -->
+            <div class="bg-white rounded-3xl shadow-xl p-10">
+                <h3 class="text-2xl font-bold mb-6 text-gray-900">Informasi Program</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Jenis</div>
+                        <div class="text-lg font-medium text-gray-900">{{ $program->jenisProgram->nama ?? 'Program' }}</div>
+                    </div>
 
-                        @if($program->lokasi)
-                        <div>
-                            <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Lokasi</div>
-                            <div class="text-lg font-medium text-gray-900">{{ $program->lokasi }}</div>
-                        </div>
-                        @endif
+                    @if($program->lokasi)
+                    <div>
+                        <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Lokasi</div>
+                        <div class="text-lg font-medium text-gray-900">{{ $program->lokasi }}</div>
+                    </div>
+                    @endif
 
-                        <div>
-                            <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Tanggal</div>
-                            <div class="text-lg font-medium text-gray-900">
-                                {{ \Carbon\Carbon::parse($program->tanggal_mulai)->format('d F Y') }}
-                                @if($program->tanggal_selesai)
-                                <br>s/d {{ \Carbon\Carbon::parse($program->tanggal_selesai)->format('d F Y') }}
-                                @endif
-                            </div>
+                    <div>
+                        <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Tanggal</div>
+                        <div class="text-lg font-medium text-gray-900">
+                            {{ \Carbon\Carbon::parse($program->tanggal_mulai)->format('d F Y') }}
+                            @if($program->tanggal_selesai)
+                            <br>s/d {{ \Carbon\Carbon::parse($program->tanggal_selesai)->format('d F Y') }}
+                            @endif
                         </div>
+                    </div>
 
-                        <div>
-                            <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Status</div>
-                            <span class="inline-block px-4 py-2 rounded-full text-white font-semibold {{ $program->status === 'aktif' ? 'bg-green-500' : ($program->status === 'segera' ? 'bg-yellow-500' : 'bg-red-500') }}">
-                                {{ $program->status === 'aktif' ? 'Pendaftaran Dibuka' : ($program->status === 'segera' ? 'Segera Dibuka' : 'Ditutup') }}
-                            </span>
-                        </div>
+                    <div>
+                        <div class="text-sm text-gray-500 uppercase font-semibold mb-1">Status</div>
+                        <span class="inline-block px-4 py-2 rounded-full text-white font-semibold {{ $program->status === 'aktif' ? 'bg-green-500' : ($program->status === 'segera' ? 'bg-yellow-500' : 'bg-red-500') }}">
+                            {{ $program->status === 'aktif' ? 'Pendaftaran Dibuka' : ($program->status === 'segera' ? 'Segera Dibuka' : 'Ditutup') }}
+                        </span>
                     </div>
                 </div>
 
-                <!-- Apa yang Kamu Dapatkan? + Tombol di Bawah -->
-                <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl shadow-xl p-8 flex flex-col">
-                    <h3 class="text-2xl font-bold mb-6 text-gray-900">Apa yang Kamu Dapatkan?</h3>
-                    <ul class="space-y-4 text-gray-700 flex-1">
-                        <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Pengalaman volunteering langsung di masyarakat</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Sertifikat resmi dari Cakrawala Muda Indonesia</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Jaringan dengan pemuda dari seluruh Indonesia</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Penginapan & makan selama program</span>
-                        </li>
-                    </ul>
-
-                    <div class="mt-5 flex flex-col sm:flex-row gap-4">
-                      @if($program->status === 'aktif')
+                @if($program->status === 'aktif')
+                <div class="mt-8 pt-8 border-t border-gray-200">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <!-- Buku Panduan Pendaftaran -->
-                        <a href="{{ asset('path/to/buku-panduan.pdf') }}" 
-                           target="_blank"
-                           class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-center py-4 rounded-full font-bold transition shadow-lg flex items-center justify-center gap-3">
+                        <a href="{{ asset('path/to/buku-panduan.pdf') }}"
+                            target="_blank"
+                            class="flex-1 max-w-xs bg-indigo-600 hover:bg-indigo-700 text-white text-center py-4 rounded-xl font-bold transition shadow-lg flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
                             Buku Panduan
                         </a>
 
                         <!-- Link Pendaftaran -->
-                        <a href="https://forms.gle/contohlinkpendaftaran" 
-                           target="_blank"
-                           class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center text-sm rounded-full font-bold transition shadow-lg flex items-center justify-center">
-                            Link Pendaftaran
+                        <a href="https://forms.gle/contohlinkpendaftaran"
+                            target="_blank"
+                            class="flex-1 max-w-xs bg-blue-600 hover:bg-blue-700 text-white text-center py-4 rounded-xl font-bold transition shadow-lg flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Daftar Sekarang
                         </a>
-                        @endif
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal untuk Lihat Foto Full -->
+<div id="photoModal" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onclick="closeModal()">
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 transition">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+    <img id="modalImage" src="" alt="Full Photo" class="max-w-full max-h-full object-contain" onclick="event.stopPropagation()">
+</div>
+
+<script>
+    function openModal(imageSrc) {
+        document.getElementById('photoModal').classList.remove('hidden');
+        document.getElementById('modalImage').src = imageSrc;
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('photoModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal dengan ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+</script>
 
 @endsection

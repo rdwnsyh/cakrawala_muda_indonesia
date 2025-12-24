@@ -51,9 +51,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Gambar Ilustrasi -->
             <div class="order-2 lg:order-1">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f2fa9a20d?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                     alt="Tim Cakrawala Muda Indonesia" 
-                     class="w-full rounded-3xl shadow-2xl object-cover">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f2fa9a20d?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800"
+                    alt="Tim Cakrawala Muda Indonesia"
+                    class="w-full rounded-3xl shadow-2xl object-cover">
             </div>
 
             <!-- Teks About Us -->
@@ -156,55 +156,103 @@
             </p>
         </div>
 
-        <!-- Grid Pengurus (contoh 6 orang, bisa ditambah/dikurang) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            <!-- Pengurus 1 -->
-            <div class="group text-center">
-                <div class="relative overflow-hidden rounded-3xl shadow-xl mb-6">
-                    <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                         alt="Nama Pengurus" 
-                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h4 class="text-2xl font-bold">Ahmad Rizki</h4>
-                        <p class="text-lg">Pendiri & Ketua Umum</p>
+        <!-- Struktur Organisasi -->
+        @if($pengurus && $pengurus->count() > 0)
+        @php
+        // Kelompokkan pengurus berdasarkan divisi
+        $bph = $pengurus->where('divisi', 'BPH')->sortBy('urutan');
+        $divisi_lain = $pengurus->whereNotIn('divisi', ['BPH'])->groupBy('divisi');
+        @endphp
+
+        <div class="max-w-6xl mx-auto">
+            <!-- BPH (Tingkat Atas) -->
+            @if($bph->count() > 0)
+            <div class="mb-12">
+                <div class="flex flex-wrap justify-center gap-6">
+                    @foreach($bph as $person)
+                    <div class="w-40">
+                        <div class="group bg-white rounded-lg border-2 border-blue-600 overflow-hidden hover:border-blue-700 transition-colors duration-300">
+                            <!-- Foto -->
+                            <div class="w-full">
+                                @if($person->foto)
+                                <img src="{{ asset('storage/' . $person->foto) }}"
+                                    alt="{{ $person->nama }}"
+                                    class="w-full h-48 object-cover">
+                                @else
+                                <div class="w-full h-48 bg-blue-600 flex items-center justify-center">
+                                    <span class="text-white text-3xl font-bold">{{ strtoupper(substr($person->nama, 0, 2)) }}</span>
+                                </div>
+                                @endif
+                            </div>
+
+                            <!-- Info -->
+                            <div class="p-3 text-center bg-blue-600 text-white">
+                                <h4 class="text-sm font-bold mb-0.5">{{ $person->nama }}</h4>
+                                <p class="text-xs">{{ $person->jabatan }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <!-- Garis Penghubung -->
+                @if($divisi_lain->count() > 0)
+                <div class="flex justify-center my-6">
+                    <div class="w-px h-12 bg-gray-300"></div>
+                </div>
+                @endif
+            </div>
+            @endif
+
+            <!-- Divisi Lainnya (Tingkat Bawah) -->
+            @if($divisi_lain->count() > 0)
+            <div class="space-y-10">
+                @foreach($divisi_lain as $divisiName => $members)
+                <div>
+                    <!-- Nama Divisi -->
+                    <div class="text-center mb-6">
+                        <h3 class="inline-block px-4 py-1.5 bg-blue-600 text-white text-sm font-bold rounded">
+                            {{ $divisiName }}
+                        </h3>
+                    </div>
+
+                    <!-- Anggota Divisi -->
+                    <div class="flex flex-wrap justify-center gap-4">
+                        @foreach($members->sortBy('urutan') as $person)
+                        <div class="w-36">
+                            <div class="group bg-white rounded-lg border border-gray-300 overflow-hidden hover:border-blue-600 transition-colors duration-300">
+                                <!-- Foto -->
+                                <div class="w-full">
+                                    @if($person->foto)
+                                    <img src="{{ asset('storage/' . $person->foto) }}"
+                                        alt="{{ $person->nama }}"
+                                        class="w-full h-44 object-cover">
+                                    @else
+                                    <div class="w-full h-44 bg-gray-200 flex items-center justify-center">
+                                        <span class="text-gray-600 text-2xl font-bold">{{ strtoupper(substr($person->nama, 0, 2)) }}</span>
+                                    </div>
+                                    @endif
+                                </div>
+
+                                <!-- Info -->
+                                <div class="p-2 text-center">
+                                    <h4 class="text-xs font-bold text-gray-900">{{ $person->nama }}</h4>
+                                    <p class="text-xs text-gray-600">{{ $person->jabatan }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
                 </div>
-                <p class="text-gray-600 italic">"Membangun Indonesia dimulai dari pemuda yang berani bermimpi besar."</p>
+                @endforeach
             </div>
-
-            <!-- Pengurus 2 -->
-            <div class="group text-center">
-                <div class="relative overflow-hidden rounded-3xl shadow-xl mb-6">
-                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                         alt="Nama Pengurus" 
-                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h4 class="text-2xl font-bold">Siti Nurhaliza</h4>
-                        <p class="text-lg">Wakil Ketua</p>
-                    </div>
-                </div>
-                <p class="text-gray-600 italic">"Setiap pemuda berhak mendapatkan kesempatan untuk berkembang."</p>
-            </div>
-
-            <!-- Pengurus 3 -->
-            <div class="group text-center">
-                <div class="relative overflow-hidden rounded-3xl shadow-xl mb-6">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800" 
-                         alt="Nama Pengurus" 
-                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <h4 class="text-2xl font-bold">Budi Santoso</h4>
-                        <p class="text-lg">Sekretaris Jenderal</p>
-                    </div>
-                </div>
-                <p class="text-gray-600 italic">"Kolaborasi adalah kunci perubahan besar."</p>
-            </div>
-
-            <!-- Tambahkan pengurus lain jika perlu -->
+            @endif
         </div>
+        @else
+        <div class="text-center py-12">
+            <p class="text-gray-600 text-lg">Data pengurus akan segera ditampilkan.</p>
+        </div>
+        @endif
     </div>
 </div>
 
@@ -221,12 +269,24 @@
             <a href="{{ route('programs.index') }}" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
                 Lihat Program Kami
             </a>
-            <a href="https://wa.me/6281234567890?text=Halo, saya ingin bergabung dengan Cakrawala Muda Indonesia" 
-               target="_blank"
-               class="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
+            <a href="https://wa.me/6281234567890?text=Halo, saya ingin bergabung dengan Cakrawala Muda Indonesia"
+                target="_blank"
+                class="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
                 Hubungi Kami via WhatsApp
             </a>
         </div>
     </div>
 </div>
 @endsection
+
+<!-- CSS Custom untuk scrollbar hide -->
+<style>
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+</style>
