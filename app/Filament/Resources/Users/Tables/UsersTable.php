@@ -39,6 +39,31 @@ class UsersTable
                     ->color(fn($state): string => $state ? 'success' : 'gray')
                     ->formatStateUsing(fn($state): string => $state ? 'Terverifikasi' : 'Belum'),
 
+                TextColumn::make('ig')
+                    ->label('Instagram')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('wa')
+                    ->label('WhatsApp')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('yt')
+                    ->label('YouTube')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('tiktok')
+                    ->label('TikTok')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('website')
+                    ->label('Website')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y')

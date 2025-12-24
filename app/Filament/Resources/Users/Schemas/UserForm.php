@@ -56,6 +56,37 @@ class UserForm
                             ->dehydrated(false),
                     ])
                     ->columns(1),
+
+                Section::make('Informasi Media Sosial')
+                    ->schema([
+                        TextInput::make('ig')
+                            ->label('Instagram')
+                            ->maxLength(255)
+                            ->placeholder('Contoh: @cakrawalamuda.id atau URL lengkap'),
+
+                        TextInput::make('wa')
+                            ->label('WhatsApp')
+                            ->maxLength(255)
+                            ->placeholder('Contoh: 0851-8998-3669'),
+
+                        TextInput::make('yt')
+                            ->label('YouTube')
+                            ->maxLength(255)
+                            ->placeholder('Contoh: @CakrawalaMudaIndonesia atau URL lengkap'),
+
+                        TextInput::make('tiktok')
+                            ->label('TikTok')
+                            ->maxLength(255)
+                            ->placeholder('Contoh: @cakrawalamuda.id atau URL lengkap'),
+
+                        TextInput::make('website')
+                            ->label('Website')
+                            ->url()
+                            ->maxLength(255)
+                            ->placeholder('Contoh: https://cakrawalamudaindonesia.org'),
+                    ])
+                    ->columns(2)
+                    ->collapsible(),
             ]);
     }
 }
