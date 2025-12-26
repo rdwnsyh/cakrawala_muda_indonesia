@@ -100,9 +100,7 @@
                 </h2>
 
                 <div class="mt-6 pt-6 border-t-2 border-gray-100">
-                    <a href="{{ $berita->link }}" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
+                    <a href="{{ route('berita.show', $berita->slug) }}" 
                        class="inline-flex items-center gap-3 text-blue-600 font-bold text-lg hover:text-blue-800 transition-colors">
                         <span>Baca Selengkapnya</span>
                         <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

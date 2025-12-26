@@ -37,8 +37,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Semua <span class="text-blue-600">Program</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                SEMUA <span class="text-blue-600">PROGRAM</span>
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Pilih program yang sesuai dengan minat dan jadwalmu. Setiap program dirancang untuk memberikan pengalaman berharga dan jaringan nasional.
@@ -151,7 +151,7 @@
 </div>
 
 <!-- CTA Section -->
-<div class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+{{-- <div class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">
             Siap Menjelajah Cakrawala Baru?
@@ -168,5 +168,5 @@
             Daftar Sekarang via WhatsApp
         </a>
     </div>
-</div>
+</div> --}}
 @endsection

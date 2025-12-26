@@ -56,7 +56,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Program <span class="text-blue-600">On Going</span>
+                PROGRAM <span class="text-blue-600">ON GOING</span>
             </h2>
             <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
         </div>
@@ -174,8 +174,8 @@
 <div id="our-program" class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Our <span class="text-blue-600">Program</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                OUR<span class="text-blue-600"> PROGRAM</span>
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Temukan program-program terbaik untuk pengembangan diri dan jejaring pemuda Indonesia
@@ -283,8 +283,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Testimoni <span class="text-blue-600">Alumni</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                TESTIMONI <span class="text-blue-600">ALUMNI</span>
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Cerita inspiratif dari alumni yang telah mengikuti program Cakrawala Muda Indonesia
@@ -312,7 +312,7 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-gray-900 text-lg">{{ $alumni->nama }}</h4>
-                        <p class="text-sm text-blue-600">{{ $alumni->jenisProgram->nama ?? 'Program' }}
+                        <p class="text-sm text-blue-600">{{ $alumni->program->nama_program ?? 'Program' }}
                         </p>
                     </div>
                 </div>

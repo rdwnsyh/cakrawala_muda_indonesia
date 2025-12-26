@@ -14,3 +14,6 @@ Route::get('/about', [AboutController::class, 'index'])->name('aboutus.index');
 Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni.index');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
+// API Routes
+Route::get('/api/programs/related', [ProgramController::class, 'getRelatedPrograms']);

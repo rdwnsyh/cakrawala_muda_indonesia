@@ -26,11 +26,7 @@
                 <a href="#alumni-list" class="bg-white text-blue-900 px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
                     Lihat Alumni Kami
                 </a>
-                <a href="https://wa.me/6281234567890?text=Halo, saya alumni Cakrawala Muda dan ingin bergabung di komunitas" 
-                   target="_blank"
-                   class="bg-green-500 hover:bg-green-600 px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
-                    Gabung Komunitas Alumni
-                </a>
+                
             </div>
         </div>
     </div>
@@ -44,7 +40,7 @@
 </div>
 
 <!-- Stats Alumni -->
-<div class="py-16 bg-blue-50">
+{{-- <div class="py-16 bg-blue-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
             <div class="bg-white rounded-3xl shadow-xl p-8">
@@ -61,14 +57,14 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <!-- Daftar Alumni -->
 <div id="alumni-list" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Kenali <span class="text-blue-600">Alumni Kami</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                KENALI <span class="text-blue-600">ALUMNI KAMI</span>
             </h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 Beberapa alumni inspiratif yang telah memberikan dampak nyata setelah mengikuti program Cakrawala Muda Indonesia
@@ -76,8 +72,8 @@
             <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mt-6"></div>
         </div>
 
-        <!-- Grid Alumni (contoh 6 alumni, bisa ditambah dengan loop jika dari database) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <!-- Grid Alumni (5 kolom, 15 items per page) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
             @forelse($alumni as $alumniItem)
             <!-- Alumni Item -->
             <div class="group bg-gradient-to-br from-blue-50 to-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300">
@@ -88,7 +84,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 text-white">
                         <h3 class="text-2xl font-bold">{{ $alumniItem->nama }}</h3>
-                        <p class="text-lg opacity-90">{{ $alumniItem->jenisProgram->nama ?? 'Program' }}</p>
+                        <p class="text-lg opacity-90">{{ $alumniItem->program->nama_program ?? 'Program' }}</p>
                     </div>
                 </div>
             </div>
@@ -106,19 +102,24 @@
             @endforelse
         </div>
 
-        <!-- Tombol Load More (jika data banyak) -->
+        <!-- Pagination -->
         @if($alumni->count() > 0)
-        <div class="text-center mt-16">
-            <p class="text-gray-600 text-lg">
-                Menampilkan {{ $alumni->count() }} alumni inspiratif
-            </p>
+        <div class="mt-16">
+            <div class="text-center mb-6">
+                <p class="text-gray-600 text-lg">
+                    Menampilkan {{ $alumni->firstItem() }} - {{ $alumni->lastItem() }} dari {{ $alumni->total() }} alumni inspiratif
+                </p>
+            </div>
+            <div class="flex justify-center">
+                {{ $alumni->links() }}
+            </div>
         </div>
         @endif
     </div>
 </div>
 
 <!-- CTA Bergabung -->
-<div class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+{{-- <div class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">
             Jadilah Bagian dari Alumni Berikutnya!
@@ -130,5 +131,5 @@
             Lihat Program Aktif
         </a>
     </div>
-</div>
+</div> --}}
 @endsection

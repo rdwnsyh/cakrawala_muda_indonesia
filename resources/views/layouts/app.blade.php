@@ -188,31 +188,102 @@
   <nav class="glass-effect shadow-lg sticky top-0 z-50 border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20">
+        <!-- Logo -->
         <div class="flex items-center space-x-3">
           <a href="{{ route('home') }}" class="flex items-center space-x-3 group">
-            <img src="{{ asset('images/logo.png') }}" alt="Cakrawala Muda Indonesia" class="h-16 w-auto transform group-hover:scale-105 transition-transform">
+            <img src="{{ asset('images/logo.png') }}" alt="Cakrawala Muda Indonesia" class="h-12 md:h-16 w-auto transform group-hover:scale-105 transition-transform">
           </a>
         </div>
-        <div class="flex items-center space-x-2">
-          <a href="{{ route('home') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Home
+
+        <!-- Desktop Menu -->
+        <div class="hidden lg:flex items-center space-x-2">
+          <a href="{{ route('home') }}" class="px-5 py-2 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            HOME
           </a>
-          <a href="{{ route('aboutus.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('aboutus.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            About Us
+          <a href="{{ route('aboutus.index') }}" class="px-5 py-2 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('aboutus.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            ABOUT US
           </a>
-          <a href="{{ route('programs.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Our Program
+          <a href="{{ route('programs.index') }}" class="px-5 py-2 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            OUR PROGRAM
           </a>
-          <a href="{{ route('alumni.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('alumni.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Alumni
+          <a href="{{ route('alumni.index') }}" class="px-5 py-2 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('alumni.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            ALUMNI
           </a>
-          <a href="{{ route('berita.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
-            Update Berita
+          <a href="{{ route('berita.index') }}" class="px-5 py-2 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+            UPDATE BERITA
           </a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <div class="lg:hidden flex items-center">
+          <button id="mobileMenuBtn" type="button" class="inline-flex items-center justify-center p-2 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600 transition-all">
+            <svg class="h-6 w-6" id="menuIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg class="h-6 w-6 hidden" id="closeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="lg:hidden hidden">
+      <div class="px-4 pt-2 pb-4 space-y-2 bg-white border-t border-gray-100">
+        <a href="{{ route('home') }}" class="block px-4 py-3 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+          HOME
+        </a>
+        <a href="{{ route('aboutus.index') }}" class="block px-4 py-3 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('aboutus.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+          ABOUT US
+        </a>
+        <a href="{{ route('programs.index') }}" class="block px-4 py-3 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+          OUR PROGRAM
+        </a>
+        <a href="{{ route('alumni.index') }}" class="block px-4 py-3 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('alumni.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+          ALUMNI
+        </a>
+        <a href="{{ route('berita.index') }}" class="block px-4 py-3 rounded-xl font-medium text-sm transition-all {{ request()->routeIs('berita.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
+          UPDATE BERITA
+        </a>
+      </div>
+    </div>
   </nav>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    mobileMenuBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+      menuIcon.classList.toggle('hidden');
+      closeIcon.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const isClickInsideMenu = mobileMenu.contains(event.target);
+      const isClickOnButton = mobileMenuBtn.contains(event.target);
+      
+      if (!isClickInsideMenu && !isClickOnButton && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+
+    // Close mobile menu when window is resized to desktop
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 1024) {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      }
+    });
+  </script>
 
   <!-- Content -->
   @yield('content')
@@ -224,7 +295,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
         <div class="space-y-4">
           <div class="flex items-center space-x-3">
-            <img src="{{ asset('images/logo.png') }}" alt="Cakrawala Muda Indonesia" class="h-16 w-auto">
+            <img src="{{ asset('images/logo2.png') }}" alt="Cakrawala Muda Indonesia" class="h-16 w-auto">
           </div>
           <p class="text-gray-300 leading-relaxed">Platform untuk generasi penjelajah dan pemimpin masa depan Indonesia.</p>
           <div class="flex space-x-4 pt-4">
@@ -260,16 +331,16 @@
           <ul class="space-y-3">
             <li><a href="{{ route('home') }}" class="text-gray-300 hover:text-white hover:pl-2 transition-all flex items-center group"><svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>Home</a></li>
+                </svg>HOME</a></li>
             <li><a href="{{ route('programs.index') }}" class="text-gray-300 hover:text-white hover:pl-2 transition-all flex items-center group"><svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>Program</a></li>
+                </svg>PROGRAM</a></li>
             <li><a href="{{ route('berita.index') }}" class="text-gray-300 hover:text-white hover:pl-2 transition-all flex items-center group"><svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>Berita</a></li>
+                </svg>BERITA</a></li>
             <li><a href="#" class="text-gray-300 hover:text-white hover:pl-2 transition-all flex items-center group"><svg class="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>Tentang Kami</a></li>
+                </svg>TENTANG KAMI</a></li>
           </ul>
         </div>
         <div>

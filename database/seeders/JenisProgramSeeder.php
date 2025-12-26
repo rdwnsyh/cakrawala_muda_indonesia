@@ -15,17 +15,22 @@ class JenisProgramSeeder extends Seeder
     {
         $jenisPrograms = [
             [
-                'nama' => 'Cakrawala Muda 1',
+                'nama' => 'Cakrawala Muda',
                 'poster' => 'jenis_program/volunteer-teaching.jpg',
                 'status' => 'aktif',
             ],
             [
-                'nama' => 'Cakrawala Muda 2',
+                'nama' => 'Cakrawala Volunteering on the Weekend',
                 'poster' => 'jenis_program/medical-camp.jpg',
                 'status' => 'segera',
             ],
             [
-                'nama' => 'Cakrawala Muda 3',
+                'nama' => 'Sehari Jadi Volunteer',
+                'poster' => 'jenis_program/community-development.jpg',
+                'status' => 'segera',
+            ],
+            [
+                'nama' => 'Aku Seorang Cakra',
                 'poster' => 'jenis_program/community-development.jpg',
                 'status' => 'tutup',
             ],

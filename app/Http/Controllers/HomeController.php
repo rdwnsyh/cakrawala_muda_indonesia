@@ -13,17 +13,22 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Ambil program ongoing (status aktif, terbaru)
-        $ongoingProgram = Program::where('status', 'aktif')
-            ->orderBy('tanggal_mulai', 'desc')
+        // Ambil jenis program dengan program aktif terbaru
+        $ongoingProgram = JenisProgram::whereHas('programs', function($query) {
+                $query->where('status', 'aktif');
+            })
+            ->with(['programs' => function($query) {
+                $query->where('status', 'aktif')
+                    ->orderBy('tanggal_mulai', 'desc');
+            }])
+            ->orderBy('created_at', 'desc')
             ->first();
 
         // Count program aktif untuk stats
         $activeProgramsCount = Program::where('status', 'aktif')->count();
 
         // Ambil jenis program dari tabel jenis_programs dengan count programs per status
-        $jenisPrograms = JenisProgram::whereHas('programs')
-            ->withCount([
+        $jenisPrograms = JenisProgram::withCount([
                 'programs',
                 'programs as aktif_count' => function($query) {
                     $query->where('status', 'aktif');
@@ -35,10 +40,11 @@ class HomeController extends Controller
                     $query->where('status', 'selesai');
                 }
             ])
+            ->orderBy('nama', 'asc')
             ->get();
 
-        // Ambil alumni dengan testimoni untuk ditampilkan
-        $alumniTestimonials = Alumni::with('jenisProgram')
+        // Ambil alumni dengan testimoni untuk ditampilkan (menampilkan program alumni)
+        $alumniTestimonials = Alumni::with('program')
             ->whereNotNull('testimoni')
             ->orderBy('created_at', 'desc')
             ->take(3)
@@ -46,6 +52,7 @@ class HomeController extends Controller
 
         $testimonials = Testimonial::where('is_featured', true)
             ->orderBy('created_at', 'desc')
+            ->take(3)
             ->get();
 
         $beritas = Berita::orderBy('created_at', 'desc')

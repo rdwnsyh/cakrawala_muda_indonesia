@@ -17,8 +17,8 @@ class ProgramSeeder extends Seeder
         $programs = [
             [
                 'jenis_program_id' => 1, // Cakrawala Muda 1
-                'nama_program' => 'Volunteer Teaching Lombok 2025',
-                'slug' => Str::slug('Volunteer Teaching Lombok 2025'),
+                'nama_program' => 'Cakrawala Muda 1',
+                'slug' => Str::slug('Cakrawala Muda 1'),
                 'lokasi' => 'Lombok Timur, NTB',
                 'poster' => 'programs/vt-lombok-2025.jpg',
                 'galeri_1' => 'programs/galeri/vt-lombok-1.jpg',
@@ -32,8 +32,8 @@ class ProgramSeeder extends Seeder
                 'link_daftar_sekarang' => 'https://forms.gle/example-vt-lombok',
             ],
             [
-                'jenis_program_id' => 2, // Cakrawala Muda 2
-                'nama_program' => 'Medical Camp Papua 2025',
+                'jenis_program_id' => 2, // Cakrawala Volunteering on the Weekend
+                'nama_program' => 'Cakrawala Volunteering on the Weekend 1',
                 'slug' => Str::slug('Medical Camp Papua 2025'),
                 'lokasi' => 'Jayapura, Papua',
                 'poster' => 'programs/mc-papua-2025.jpg',
@@ -48,9 +48,9 @@ class ProgramSeeder extends Seeder
                 'link_daftar_sekarang' => 'https://forms.gle/example-mc-papua',
             ],
             [
-                'jenis_program_id' => 3, // Cakrawala Muda 3
-                'nama_program' => 'Community Development Sulawesi Tengah',
-                'slug' => Str::slug('Community Development Sulawesi Tengah'),
+                'jenis_program_id' => 3, // Sehari Jadi Volunteer
+                'nama_program' => 'Sehari Jadi Volunteer 1',
+                'slug' => Str::slug('Sehari Jadi Volunteer 1'),
                 'lokasi' => 'Palu, Sulawesi Tengah',
                 'poster' => 'programs/comdev-sulteng-2025.jpg',
                 'galeri_1' => 'programs/galeri/comdev-sulteng-1.jpg',
@@ -65,8 +65,8 @@ class ProgramSeeder extends Seeder
             ],
             [
                 'jenis_program_id' => 1, // Cakrawala Muda 1
-                'nama_program' => 'Volunteer Teaching Maluku Utara',
-                'slug' => Str::slug('Volunteer Teaching Maluku Utara'),
+                'nama_program' => 'Cakrawala Muda 2',
+                'slug' => Str::slug('Cakrawala Muda 2'),
                 'lokasi' => 'Ternate, Maluku Utara',
                 'poster' => 'programs/vt-malut-2025.jpg',
                 'galeri_1' => 'programs/galeri/vt-malut-1.jpg',
@@ -80,9 +80,9 @@ class ProgramSeeder extends Seeder
                 'link_daftar_sekarang' => 'https://forms.gle/example-vt-malut',
             ],
             [
-                'jenis_program_id' => 2, // Cakrawala Muda 2
-                'nama_program' => 'Medical Camp Nusa Tenggara Timur',
-                'slug' => Str::slug('Medical Camp Nusa Tenggara Timur'),
+                'jenis_program_id' => 2, // Cakrawala Volunteering on the Weekend
+                'nama_program' => 'Cakrawala Volunteering on the Weekend 2',
+                'slug' => Str::slug('Cakrawala Volunteering on the Weekend 2'),
                 'lokasi' => 'Kupang, NTT',
                 'poster' => 'programs/mc-ntt-2025.jpg',
                 'galeri_1' => 'programs/galeri/mc-ntt-1.jpg',
@@ -96,9 +96,9 @@ class ProgramSeeder extends Seeder
                 'link_daftar_sekarang' => 'https://forms.gle/example-mc-ntt',
             ],
             [
-                'jenis_program_id' => 3, // Cakrawala Muda 3
-                'nama_program' => 'Community Development Aceh',
-                'slug' => Str::slug('Community Development Aceh'),
+                'jenis_program_id' => 3, // Sehari Jadi Volunteer
+                'nama_program' => 'Sehari Jadi Volunteer 2',
+                'slug' => Str::slug('Sehari Jadi Volunteer 2'),
                 'lokasi' => 'Banda Aceh, Aceh',
                 'poster' => 'programs/comdev-aceh-2025.jpg',
                 'galeri_1' => 'programs/galeri/comdev-aceh-1.jpg',

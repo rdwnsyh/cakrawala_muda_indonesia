@@ -217,4 +217,206 @@
     });
 </script>
 
+<!-- Program Sejenis -->
+@if($relatedPrograms->count() > 0)
+<div class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                Program <span class="text-blue-600">Sejenis</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Program lain dari {{ $program->jenisProgram->nama ?? 'kategori yang sama' }}
+            </p>
+            <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full mt-4"></div>
+        </div>
+
+        <!-- Grid Program Sejenis -->
+        <div id="relatedProgramsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            @foreach($relatedPrograms as $relatedProgram)
+            <div class="related-program-item group bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3">
+                <div class="relative h-64 overflow-hidden">
+                    @if($relatedProgram->poster)
+                    <img src="{{ asset('storage/' . $relatedProgram->poster) }}" 
+                         alt="{{ $relatedProgram->nama_program }}" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    @else
+                    <div class="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                        <svg class="w-20 h-20 text-white opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                        </svg>
+                    </div>
+                    @endif
+
+                    <!-- Status Badge -->
+                    <div class="absolute top-4 right-4">
+                        <span class="px-3 py-1.5 text-sm font-bold rounded-full shadow-lg {{ $relatedProgram->status === 'aktif' ? 'bg-green-500' : ($relatedProgram->status === 'segera' ? 'bg-yellow-500' : 'bg-red-500') }} text-white">
+                            {{ $relatedProgram->status === 'aktif' ? 'Dibuka' : ($relatedProgram->status === 'segera' ? 'Segera' : 'Selesai') }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        {{ $relatedProgram->nama_program }}
+                    </h3>
+
+                    <div class="space-y-2 mb-4 text-gray-600 text-sm">
+                        @if($relatedProgram->lokasi)
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            </svg>
+                            <span>{{ $relatedProgram->lokasi }}</span>
+                        </div>
+                        @endif
+
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>
+                                {{ \Carbon\Carbon::parse($relatedProgram->tanggal_mulai)->format('d M Y') }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('programs.show', $relatedProgram->slug) }}" 
+                       class="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-800 transition">
+                        <span>Lihat Detail</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <!-- Button Load More -->
+        <div id="loadMoreContainer" class="text-center mt-12">
+            <button id="loadMoreBtn" 
+                    data-jenis-program-id="{{ $program->jenis_program_id }}"
+                    data-exclude-id="{{ $program->id }}"
+                    data-offset="3"
+                    class="group inline-flex items-center gap-3 bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-105 hover:bg-blue-700 transition-all duration-300">
+                <span>Lihat Program Lainnya</span>
+                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <p id="loadingText" class="hidden text-gray-600 mt-4">Memuat program...</p>
+            <p id="noMoreText" class="hidden text-gray-600 mt-4">Tidak ada program lainnya</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loadMoreBtn')?.addEventListener('click', function() {
+        const btn = this;
+        const jenisProgramId = btn.dataset.jenisProgramId;
+        const excludeId = btn.dataset.excludeId;
+        let offset = parseInt(btn.dataset.offset);
+        
+        // Tampilkan loading
+        btn.classList.add('hidden');
+        document.getElementById('loadingText').classList.remove('hidden');
+        
+        // Fetch program sejenis berikutnya
+        fetch(`/api/programs/related?jenis_program_id=${jenisProgramId}&exclude_id=${excludeId}&offset=${offset}&limit=3`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loadingText').classList.add('hidden');
+                
+                if (data.programs && data.programs.length > 0) {
+                    // Tambahkan program ke container
+                    const container = document.getElementById('relatedProgramsContainer');
+                    
+                    data.programs.forEach(program => {
+                        const programCard = createProgramCard(program);
+                        container.insertAdjacentHTML('beforeend', programCard);
+                    });
+                    
+                    // Update offset untuk load berikutnya
+                    offset += 3;
+                    btn.dataset.offset = offset;
+                    
+                    // Tampilkan button lagi jika masih ada data
+                    if (data.hasMore) {
+                        btn.classList.remove('hidden');
+                    } else {
+                        document.getElementById('noMoreText').classList.remove('hidden');
+                    }
+                } else {
+                    document.getElementById('noMoreText').classList.remove('hidden');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('loadingText').classList.add('hidden');
+                btn.classList.remove('hidden');
+                alert('Gagal memuat program. Silakan coba lagi.');
+            });
+    });
+    
+    function createProgramCard(program) {
+        const statusClass = program.status === 'aktif' ? 'bg-green-500' : (program.status === 'segera' ? 'bg-yellow-500' : 'bg-red-500');
+        const statusText = program.status === 'aktif' ? 'Dibuka' : (program.status === 'segera' ? 'Segera' : 'Selesai');
+        
+        return `
+            <div class="related-program-item group bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3">
+                <div class="relative h-64 overflow-hidden">
+                    ${program.poster ? 
+                        `<img src="/storage/${program.poster}" alt="${program.nama_program}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">` :
+                        `<div class="w-full h-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                            <svg class="w-20 h-20 text-white opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                            </svg>
+                        </div>`
+                    }
+                    <div class="absolute top-4 right-4">
+                        <span class="px-3 py-1.5 text-sm font-bold rounded-full shadow-lg ${statusClass} text-white">
+                            ${statusText}
+                        </span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        ${program.nama_program}
+                    </h3>
+                    <div class="space-y-2 mb-4 text-gray-600 text-sm">
+                        ${program.lokasi ? `
+                            <div class="flex items-center gap-2">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                </svg>
+                                <span>${program.lokasi}</span>
+                            </div>
+                        ` : ''}
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>${formatDate(program.tanggal_mulai)}</span>
+                        </div>
+                    </div>
+                    <a href="/programs/${program.slug}" class="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-800 transition">
+                        <span>Lihat Detail</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+    
+    function formatDate(dateString) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        const date = new Date(dateString);
+        return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+    }
+</script>
+@endif
+
 @endsection

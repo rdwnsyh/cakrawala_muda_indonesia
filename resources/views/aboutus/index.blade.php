@@ -42,8 +42,8 @@
 <div id="about-us" class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                About <span class="text-blue-600">Us</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                ABOUT <span class="text-blue-600">US</span>
             </h2>
             <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
         </div>
@@ -51,9 +51,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Gambar Ilustrasi -->
             <div class="order-2 lg:order-1">
-                <img src="https://images.unsplash.com/photo-1522071820081-009f2fa9a20d?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=800"
+                <img src="{{ asset('images/logo.png') }}"
                     alt="Tim Cakrawala Muda Indonesia"
-                    class="w-full rounded-3xl shadow-2xl object-cover">
+                    class="w-full object-cover">
+                    {{-- rounded-3xl shadow-2xl --}}
             </div>
 
             <!-- Teks About Us -->
@@ -67,14 +68,14 @@
                 <p class="text-lg text-gray-700 leading-relaxed">
                     Sejak berdiri, kami telah menjangkau lebih dari <strong>25 provinsi</strong> dan melibatkan <strong>500+ alumni</strong> yang kini aktif berkarya di berbagai bidang — dari pendidikan, lingkungan, sosial, hingga entrepreneurship.
                 </p>
-                <div class="pt-6">
+                {{-- <div class="pt-6">
                     <a href="#visi-misi" class="inline-flex items-center gap-3 text-blue-600 font-bold text-lg hover:text-blue-800 transition">
                         Lihat Visi & Misi Kami
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -84,8 +85,8 @@
 <div id="visi-misi" class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Visi & <span class="text-blue-600">Misi</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                VISI & <span class="text-blue-600">MISI</span>
             </h2>
             <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
         </div>
@@ -147,8 +148,8 @@
 <div class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Pengurus <span class="text-blue-600">Inti</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                PENGURUS <span class="text-blue-600">INTI</span>
             </h2>
             <div class="w-24 h-1.5 bg-blue-600 mx-auto rounded-full"></div>
             <p class="text-xl text-gray-600 mt-6 max-w-3xl mx-auto">
@@ -256,27 +257,6 @@
     </div>
 </div>
 
-<!-- CTA Section -->
-<div class="py-20 bg-gradient-to-r from-white text-blue-600 to-blue-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">
-            Bergabunglah Bersama Kami
-        </h2>
-        <p class="text-xl mb-10 max-w-3xl mx-auto">
-            Jadilah bagian dari perjalanan menginspirasi Indonesia melalui aksi pemuda
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-6">
-            <a href="{{ route('programs.index') }}" class="bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
-                Lihat Program Kami
-            </a>
-            <a href="https://wa.me/6281234567890?text=Halo, saya ingin bergabung dengan Cakrawala Muda Indonesia"
-                target="_blank"
-                class="bg-green-500 hover:bg-green-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:shadow-2xl hover:scale-105 transition">
-                Hubungi Kami via WhatsApp
-            </a>
-        </div>
-    </div>
-</div>
 @endsection
 
 <!-- CSS Custom untuk scrollbar hide -->

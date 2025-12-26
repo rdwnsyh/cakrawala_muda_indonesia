@@ -9,9 +9,9 @@ class AlumniController extends Controller
 {
     public function index(Request $request)
     {
-        $alumni = Alumni::with('jenisProgram')
+        $alumni = Alumni::with('program')
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(15);
 
         // Count total alumni
         $totalAlumni = Alumni::count();

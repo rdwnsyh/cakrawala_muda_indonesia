@@ -22,5 +22,16 @@ class BeritaController extends Controller
     return view('berita.index', compact('beritas'));
   }
 
-  // Show method removed - berita now links directly to external URLs
+  public function show($slug)
+  {
+    $berita = Berita::where('slug', $slug)->firstOrFail();
+    
+    // Ambil berita terkait (3 berita terbaru selain yang sedang dibaca)
+    $relatedBeritas = Berita::where('id', '!=', $berita->id)
+      ->orderBy('created_at', 'desc')
+      ->take(3)
+      ->get();
+    
+    return view('berita.show', compact('berita', 'relatedBeritas'));
+  }
 }
