@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->enum('status', ['aktif', 'segera', 'tutup'])->default('aktif');
+            $table->text('link_buku_panduan')->nullable();
+            $table->text('link_daftar_sekarang')->nullable();
             $table->timestamps();
         });
     }

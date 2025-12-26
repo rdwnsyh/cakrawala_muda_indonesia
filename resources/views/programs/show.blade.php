@@ -157,7 +157,8 @@
                 <div class="mt-8 pt-8 border-t border-gray-200">
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <!-- Buku Panduan Pendaftaran -->
-                        <a href="{{ asset('path/to/buku-panduan.pdf') }}"
+                        @if($program->link_buku_panduan)
+                        <a href="{{ $program->link_buku_panduan }}"
                             target="_blank"
                             class="flex-1 max-w-xs bg-indigo-600 hover:bg-indigo-700 text-white text-center py-4 rounded-xl font-bold transition shadow-lg flex items-center justify-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,9 +166,11 @@
                             </svg>
                             Buku Panduan
                         </a>
+                        @endif
 
                         <!-- Link Pendaftaran -->
-                        <a href="https://forms.gle/contohlinkpendaftaran"
+                        @if($program->link_daftar_sekarang)
+                        <a href="{{ $program->link_daftar_sekarang }}"
                             target="_blank"
                             class="flex-1 max-w-xs bg-blue-600 hover:bg-blue-700 text-white text-center py-4 rounded-xl font-bold transition shadow-lg flex items-center justify-center gap-3">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,6 +178,7 @@
                             </svg>
                             Daftar Sekarang
                         </a>
+                        @endif
                     </div>
                 </div>
                 @endif

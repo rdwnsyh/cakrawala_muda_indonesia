@@ -49,11 +49,6 @@ class UserForm
                             ->maxLength(255)
                             ->placeholder('Ulangi password'),
 
-                        Checkbox::make('is_verified')
-                            ->label('Verifikasi Email Otomatis')
-                            ->helperText('Centang untuk langsung memverifikasi email user')
-                            ->default(true)
-                            ->dehydrated(false),
                     ])
                     ->columns(1),
 

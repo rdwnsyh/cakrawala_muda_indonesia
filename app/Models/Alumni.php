@@ -10,12 +10,12 @@ class Alumni extends Model
     protected $fillable = [
         'foto',
         'nama',
-        'jenis_program_id',
+        'program_id',
         'testimoni',
     ];
 
-    public function jenisProgram(): BelongsTo
+    public function program(): BelongsTo
     {
-        return $this->belongsTo(JenisProgram::class);
+        return $this->belongsTo(Program::class);
     }
 }

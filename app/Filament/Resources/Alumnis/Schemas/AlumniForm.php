@@ -23,9 +23,9 @@ class AlumniForm
                             ->maxLength(255)
                             ->placeholder('Masukkan nama alumni'),
 
-                        Select::make('jenis_program_id')
+                        Select::make('program_id')
                             ->label('Alumni Program')
-                            ->relationship('jenisProgram', 'nama')
+                            ->relationship('program', 'nama_program')
                             ->required()
                             ->searchable()
                             ->preload()

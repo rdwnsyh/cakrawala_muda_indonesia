@@ -21,6 +21,8 @@ class Program extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'status',
+        'link_buku_panduan',
+        'link_daftar_sekarang',
     ];
 
     protected $casts = [

@@ -18,6 +18,7 @@ class PengurusesTable
             ->columns([
                 ImageColumn::make('foto')
                     ->label('Foto')
+                    ->disk('public')
                     ->circular()
                     ->size(60),
 

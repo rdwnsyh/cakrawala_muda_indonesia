@@ -29,7 +29,7 @@ class AlumnisTable
                     ->sortable()
                     ->weight('bold'),
 
-                TextColumn::make('jenisProgram.nama')
+                TextColumn::make('program.jenisProgram.nama')
                     ->label('Alumni Program')
                     ->badge()
                     ->color('primary')
@@ -43,9 +43,9 @@ class AlumnisTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('jenis_program_id')
+                SelectFilter::make('program_id')
                     ->label('Filter Program')
-                    ->relationship('jenisProgram', 'nama')
+                    ->relationship('program', 'nama_program')
                     ->searchable()
                     ->preload(),
             ])

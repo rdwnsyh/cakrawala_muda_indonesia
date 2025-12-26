@@ -31,14 +31,6 @@ class UsersTable
                     ->copyMessage('Email disalin!')
                     ->copyMessageDuration(1500),
 
-                TextColumn::make('email_verified_at')
-                    ->label('Email Terverifikasi')
-                    ->dateTime('d M Y, H:i')
-                    ->sortable()
-                    ->badge()
-                    ->color(fn($state): string => $state ? 'success' : 'gray')
-                    ->formatStateUsing(fn($state): string => $state ? 'Terverifikasi' : 'Belum'),
-
                 TextColumn::make('ig')
                     ->label('Instagram')
                     ->searchable()

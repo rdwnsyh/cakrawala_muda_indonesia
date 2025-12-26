@@ -88,7 +88,7 @@ class ProgramResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn ($set, $state) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn($set, $state) => $set('slug', Str::slug($state))),
 
                         TextInput::make('slug')
                             ->required()
@@ -197,6 +197,25 @@ class ProgramResource extends Resource
                             ->openable()
                             ->helperText('Foto galeri program (opsional)'),
                     ])->columns(3),
+
+                Section::make('Link & Pendaftaran')
+                    ->schema([
+                        TextInput::make('link_buku_panduan')
+                            ->label('Link Buku Panduan')
+                            ->url()
+                            ->placeholder('https://drive.google.com/...')
+                            ->helperText('Link Google Drive untuk buku panduan program (opsional)')
+                            ->maxLength(500)
+                            ->suffixIcon('heroicon-o-document-text'),
+
+                        TextInput::make('link_daftar_sekarang')
+                            ->label('Link Daftar Sekarang')
+                            ->url()
+                            ->placeholder('https://forms.google.com/...')
+                            ->helperText('Link Google Form untuk pendaftaran program (opsional)')
+                            ->maxLength(500)
+                            ->suffixIcon('heroicon-o-clipboard-document-list'),
+                    ])->columns(2),
             ]);
     }
 

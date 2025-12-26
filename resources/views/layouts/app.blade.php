@@ -197,7 +197,7 @@
           <a href="{{ route('home') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('home') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
             Home
           </a>
-          <a href="{{ route('aboutus.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+          <a href="{{ route('aboutus.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('aboutus.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">
             About Us
           </a>
           <a href="{{ route('programs.index') }}" class="px-6 py-2.5 rounded-xl font-medium transition-all {{ request()->routeIs('programs.*') ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600' }}">

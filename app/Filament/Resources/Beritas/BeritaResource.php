@@ -121,6 +121,7 @@ class BeritaResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('gambar_berita')
                     ->label('Gambar')
+                    ->disk('public')
                     ->circular(),
                 Tables\Columns\TextColumn::make('jenis_berita')
                     ->label('Jenis')

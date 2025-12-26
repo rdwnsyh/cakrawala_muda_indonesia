@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('poster')->nullable();
-            $table->enum('status', ['aktif', 'selesai'])->default('aktif');
+            $table->enum('status', ['aktif', 'segera', 'tutup'])->default('aktif');
             $table->timestamps();
         });
     }

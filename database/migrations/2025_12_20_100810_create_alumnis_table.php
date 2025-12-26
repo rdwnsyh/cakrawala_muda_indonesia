@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('foto');
             $table->string('nama');
-            $table->foreignId('jenis_program_id')->constrained('jenis_programs')->onDelete('cascade');
+            $table->foreignId('program_id')->constrained('programs')->onDelete('cascade');
+            $table->text('testimoni')->nullable();
             $table->timestamps();
         });
     }
